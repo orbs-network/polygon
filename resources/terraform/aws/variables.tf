@@ -1,5 +1,5 @@
 variable "application" {
-  default = "orbs-network-constellation"
+  default = "orbs-network-node"
 }
 
 variable "provisionersrc" {

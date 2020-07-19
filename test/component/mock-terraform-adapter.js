@@ -1,6 +1,6 @@
 module.exports = {
     async create(params) {
-        console.log('[terraform mock adapter] creating the constellation', params);
+        console.log('[terraform mock adapter] creating the node', params);
 
         return {
             ok: true,
@@ -22,7 +22,7 @@ module.exports = {
         return '/some/path/to/workspace';
     },
     async destroy(params) {
-        console.log('[terraform mock adapter] destroying the constellation', params);
+        console.log('[terraform mock adapter] destroying the node', params);
 
         return {
             ok: true,
