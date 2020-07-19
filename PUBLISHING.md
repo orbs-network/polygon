@@ -1,4 +1,4 @@
-# Publishing Nebula Versions
+# Publishing Polygon Versions
 
 > Note: This section is only relevant to Nebula maintainers
 
@@ -9,22 +9,22 @@
 * `experimental` - unstable dev release, used by developers and core team.
 
 
-To view current versions for both tags, visit [this page](https://www.npmjs.com/package/@orbs-network/orbs-nebula?activeTab=versions) or run in CLI:
+To view current versions for both tags, visit [this page](https://www.npmjs.com/package/@orbs-network/polygon?activeTab=versions) or run in CLI:
 
 ```
-npm dist-tag ls @orbs-network/orbs-nebula
+npm dist-tag ls @orbs-network/polygon
 ```
 
 ## Installing the stable version (latest)
 
 ```
-npm install @orbs-network/orbs-nebula
+npm install @orbs-network/polygon
 ```
 
 ## Installing the experimental version
 
 ```
-npm install @orbs-network/orbs-nebula@experimental
+npm install @orbs-network/polygon@experimental
 ```
 
 ## Publishing new versions under these tags
