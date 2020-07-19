@@ -1,9 +1,9 @@
 variable "application" {
-  default = "orbs-network-constellation"
+  default = "orbs-network-node"
 }
 
 variable "provisionersrc" {
-  default = "orbs-network/nebula"
+  default = "orbs-network/polygon"
 }
 
 variable "vpc_cidr_block" {

@@ -1,7 +1,7 @@
 {
-  "name": "@orbs-network/orbs-nebula",
-  "version": "1.15.1",
-  "description": "Nebula is a tool to provision new Orbs Hybrid Blockchain Constellations",
+  "name": "@orbs-network/polygon",
+  "version": "1.16.0",
+  "description": "Polygon is a tool to provision new Orbs Hybrid Blockchain nodes",
   "main": "index.js",
   "scripts": {
     "test:unit": "mocha test/unit/*",
@@ -11,9 +11,9 @@
     "test": "npm run lint && npm run test:unit && npm run test:e2e"
   },
   "bin": {
-    "nebula": "./bin/nebula.js"
+    "polygon": "./bin/polygon.js"
   },
-  "author": "Itamar Arjuan",
+  "author": "Itamar Arjuan, Kirill Maksimov",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.401.0",

@@ -2,7 +2,7 @@ const { describe, before, after, it } = require('mocha');
 const { expect } = require('chai');
 
 const types = require('./../../constants/types');
-const { Nebula } = require('./../../lib/services/nebula');
+const { Polygon } = require('../../lib/services/polygon');
 const { Terraform } = require('./../../lib/services/terraform');
 
 const terraformAdapter = new Terraform({});
@@ -10,10 +10,10 @@ const terraformAdapter = new Terraform({});
 const harness = require('./harness');
 const path = require('path');
 
-const nebula = new Nebula({ terraformAdapter });
+const polygon = new Polygon({ terraformAdapter });
 
 const terraformBasepath = path.join(__dirname, '../../_terraform');
-nebula.setTerraformCachePath(terraformBasepath);
+polygon.setTerraformCachePath(terraformBasepath);
 
 const ciUniqueIdentifier = ('CI' in process.env) ? `${process.env.CIRCLE_BRANCH.substr(0, 16).replace(/\//g, '')}-${process.env.CIRCLE_BUILD_NUM}` : 'e2e-testing';
 
@@ -62,11 +62,11 @@ const cloud = {
 
 let shouldCleanup = true;
 
-describe.only('nebula core api', () => {
+describe.only('polygon core api', () => {
     before(() => harness.clenaupTerraformProjectFromOlderRuns({ basePath: terraformBasepath, dirName: cloud.name }));
 
     before(async () => {
-        // First we will create an Elastic IP outside the scope of createConstellation()
+        // First we will create an Elastic IP outside the scope of createNode()
         console.log('Allocating a public IP from AWS...');
         preExistingElasticIp = await harness.aws.getPublicIp(region);
         console.log('Address allocated is:', preExistingElasticIp);
@@ -88,15 +88,15 @@ describe.only('nebula core api', () => {
 
         console.log('network topology with our IP is:', network);
         keys.orbs.boyarConfig.network = network;
-        console.log('Global setup completed for nebula core API test!');
+        console.log('Global setup completed for polygon core API test!');
     });
 
     after(() => harness.cleanUpTerraformProject({ basePath: terraformBasepath, dirName: cloud.name, shouldCleanup }));
     after(() => harness.cleanUpTerraformProject({ basePath: terraformBasepath, dirName: `${cloud.name}-aside`, shouldCleanup }));
     after(() => harness.aws.destroyPublicIp(region, preExistingElasticIp));
 
-    it('should provision and destroy a constellation', async () => {
-        await nebula.createConstellation({
+    it('should provision and destroy a node', async () => {
+        await polygon.createNode({
             cloud: Object.assign({}, cloud, {
                 ip: preExistingElasticIp,
             }),
@@ -106,7 +106,7 @@ describe.only('nebula core api', () => {
         await harness.eventuallyReady({ ip: preExistingElasticIp, boyar: boyarConfig, address });
         await harness.renameTerraformProjectToAside({ basePath: terraformBasepath, dirName: cloud.name });
 
-        const destroyResult = await nebula.destroyConstellation({
+        const destroyResult = await polygon.destroyNode({
             cloud: Object.assign({}, cloud, {
                 ip: preExistingElasticIp,
             }),
