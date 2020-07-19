@@ -8,7 +8,7 @@ const { expect } = chai;
 const { Terraform } = require('./../../lib/services/terraform');
 const tf = new Terraform();
 
-const { validateBoyarUrl, boyarDefaultVersion } = require('./../../lib/services/nebula');
+const { validateBoyarUrl, boyarDefaultVersion } = require('./../../lib/services/polygon');
 
 describe('terraform service unit tests', () => {
     it('should provide the default boyarTargetUrl', () => {

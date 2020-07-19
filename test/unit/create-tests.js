@@ -6,7 +6,7 @@ chai.use(asserttype);
 const { expect } = chai;
 
 const { _create } = require("../../lib/cli/handlers/create");
-const { boyarDefaultVersion } = require("../../lib/services/nebula");
+const { boyarDefaultVersion } = require("../../lib/services/polygon");
 
 describe('_create', () => {
     it('generates keys and cloud objects from input', () => {

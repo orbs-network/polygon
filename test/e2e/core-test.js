@@ -2,7 +2,7 @@ const { describe, before, after, it } = require('mocha');
 const { expect } = require('chai');
 
 const types = require('./../../constants/types');
-const { Nebula } = require('./../../lib/services/nebula');
+const { Nebula } = require('../../lib/services/polygon');
 const { Terraform } = require('./../../lib/services/terraform');
 
 const terraformAdapter = new Terraform({});

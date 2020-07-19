@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 
-const { Nebula } = require('./../../lib/services/nebula');
+const { Nebula } = require('../../lib/services/polygon');
 const terraformAdapter = require('./mock-terraform-adapter');
 const region = 'us-east-1';
 const name = 'my-node';
