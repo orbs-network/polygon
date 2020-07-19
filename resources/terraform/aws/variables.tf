@@ -3,7 +3,7 @@ variable "application" {
 }
 
 variable "provisionersrc" {
-  default = "orbs-network/nebula"
+  default = "orbs-network/polygon"
 }
 
 variable "vpc_cidr_block" {

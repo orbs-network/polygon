@@ -10,32 +10,32 @@ const basePath = path.join(__dirname, 'private-network/nodes');
 
 let elasticIPs = [],
     nodesJSONs = [],
-    nebulaCreationStepMarker = false,
-    nebulaCreate4thNodeMarker = false;
+    polygonCreationStepMarker = false,
+    polygonCreate4thNodeMarker = false;
 
 /**
  * We don't run this test in CI that's why it's skipped.
  * It's too long and should be used only in case you want to run a more complete suite.
  */
 
-describe.skip('nebula setup a private network', () => {
+describe.skip('polygon setup a private network', () => {
     before(async () => {
         const regions = harness.fixtures.nodes.map(({ region }) => region);
-        console.log('********* NEBULA PRIVATE BLOCKCHAIN TEST GLOBAL SETUP START **********');
+        console.log('********* POLYGON PRIVATE BLOCKCHAIN TEST GLOBAL SETUP START **********');
         console.log('Getting 4 Elastic IPs in the following regions: ', regions);
 
         elasticIPs = await harness.getElasticIPsInRegions(regions);
 
         console.log('Got back the following IP allocations results from AWS:', elasticIPs);
 
-        console.log('Creating nebula "node.json" files...');
+        console.log('Creating polygon "node.json" files...');
         nodesJSONs = harness.getNodesJSONs({ elasticIPs });
         console.log('Got: ', nodesJSONs);
 
         console.log('Attempting to write "node.json" files to disc...');
         await harness.writeNodesJSONsToDisc(nodesJSONs);
 
-        console.log('********* NEBULA PRIVATE BLOCKCHAIN TEST GLOBAL SETUP FINISHED **********');
+        console.log('********* POLYGON PRIVATE BLOCKCHAIN TEST GLOBAL SETUP FINISHED **********');
     });
 
     it('should provision a 3 node network and then join a 4th node', async () => {
@@ -49,7 +49,7 @@ describe.skip('nebula setup a private network', () => {
 
         // We create the paths to the JSON files created before since
         // that's the way to trigger create() the right way so that all file paths
-        // will be resolved according to file mode. (nebula create -f <path-to-json>)
+        // will be resolved according to file mode. (polygon create -f <path-to-json>)
 
         const nodes = [1, 2, 3].map((n) => {
             return {
@@ -57,10 +57,10 @@ describe.skip('nebula setup a private network', () => {
             };
         });
 
-        console.log('********** NEBULA CREATE 3 NODES OF PRIVATE BLOCKCHAIN BEGIN ***********');
-        nebulaCreationStepMarker = true;
+        console.log('********** POLYGON CREATE 3 NODES OF PRIVATE BLOCKCHAIN BEGIN ***********');
+        polygonCreationStepMarker = true;
         await Promise.all(nodes.map(create));
-        console.log('********** NEBULA CREATE 3 NODES OF PRIVATE BLOCKCHAIN END ***********');
+        console.log('********** POLYGON CREATE 3 NODES OF PRIVATE BLOCKCHAIN END ***********');
 
         const pollInterval = 30 * 1000;
         const pollTimeout = 30 * 60 * 1000;
@@ -77,16 +77,16 @@ describe.skip('nebula setup a private network', () => {
 
         harness.writeConfigurationFiles(nodesJSONs);
 
-        console.log('********** NEBULA CREATE 4TH NODE BEGIN ***********');
+        console.log('********** POLYGON CREATE 4TH NODE BEGIN ***********');
         await create({ file: path.join(basePath, 'node4.json') });
-        nebulaCreate4thNodeMarker = true;
-        console.log('********** NEBULA CREATE 4TH NODE END ***********');
+        polygonCreate4thNodeMarker = true;
+        console.log('********** POLYGON CREATE 4TH NODE END ***********');
 
         const lastEndpoint = `${lastNode.publicIp}/vchains/10000`;
 
-        console.log('********** NEBULA UPDATE FIRST 3 NODES TOPOLOGY BEGIN ***********');
+        console.log('********** POLYGON UPDATE FIRST 3 NODES TOPOLOGY BEGIN ***********');
         await Promise.all(nodes.map(update));
-        console.log('********** NEBULA UPDATE FIRST 3 NODES TOPOLOGY END ***********');
+        console.log('********** POLYGON UPDATE FIRST 3 NODES TOPOLOGY END ***********');
 
         blockHeight = await getBlockHeight(firstEndpoint);
 
@@ -99,9 +99,9 @@ describe.skip('nebula setup a private network', () => {
 
     after(async () => {
         let destructors = [];
-        console.log('*********** NEBULA NODES DESTRUCTION START **************');
+        console.log('*********** POLYGON NODES DESTRUCTION START **************');
 
-        if (nebulaCreationStepMarker) {
+        if (polygonCreationStepMarker) {
             let nodes = [1, 2, 3].map((n) => {
                 return {
                     file: path.join(basePath, `node${n}.json`)
@@ -111,11 +111,11 @@ describe.skip('nebula setup a private network', () => {
             destructors.push(..._.take(nodes, 3).map(destroy));
         }
 
-        if (nebulaCreate4thNodeMarker) {
+        if (polygonCreate4thNodeMarker) {
             destructors.push(destroy({ file: path.join(basePath, 'node4.json') }));
         }
         await Promise.all(destructors);
-        console.log('*********** NEBULA NODES DESTRUCTION END **************');
+        console.log('*********** POLYGON NODES DESTRUCTION END **************');
     });
 
     after(async () => {

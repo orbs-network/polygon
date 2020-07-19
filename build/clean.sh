@@ -9,8 +9,8 @@ for CTX in $(ls _terraform); do
     cd ../..
 done
 
-for CTX in $(ls ~/.nebula); do
-    cd ~/.nebula/$CTX
+for CTX in $(ls ~/.polygon); do
+    cd ~/.polygon/$CTX
     
     terraform destroy --var-file=terraform.tfvars -auto-approve
     rm -f terraform.tfvars

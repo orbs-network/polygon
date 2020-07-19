@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 
-const { Nebula } = require('../../lib/services/polygon');
+const { Polygon } = require('../../lib/services/polygon');
 const terraformAdapter = require('./mock-terraform-adapter');
 const region = 'us-east-1';
 const name = 'my-node';
@@ -50,7 +50,7 @@ describe('terraform aws adapter component tests', () => {
             }
         };
 
-        let nebula = new Nebula({ terraformAdapter, awsAdapter, fsMock });
+        let polygon = new Polygon({ terraformAdapter, awsAdapter, fsMock });
 
         let cloud = {
             region,
@@ -61,7 +61,7 @@ describe('terraform aws adapter component tests', () => {
         let keys = {
         };
 
-        await nebula.createNode({ cloud, keys });
+        await polygon.createNode({ cloud, keys });
     });
 
     it('should trigger the aws adapter when a node is destroyed in order to clear the bucket', async () => {
@@ -126,7 +126,7 @@ describe('terraform aws adapter component tests', () => {
             }
         };
 
-        let nebula = new Nebula({ terraformAdapter, awsAdapter, fsMock });
+        let polygon = new Polygon({ terraformAdapter, awsAdapter, fsMock });
 
         let cloud = {
             region,
@@ -137,7 +137,7 @@ describe('terraform aws adapter component tests', () => {
         let keys = {
         };
 
-        await nebula.destroyNode({ cloud, keys });
+        await polygon.destroyNode({ cloud, keys });
 
         expect(awsAdapter.deleteBucketCalled).to.equal(true);
     });
