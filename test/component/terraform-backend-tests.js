@@ -61,10 +61,10 @@ describe('terraform aws adapter component tests', () => {
         let keys = {
         };
 
-        await nebula.createConstellation({ cloud, keys });
+        await nebula.createNode({ cloud, keys });
     });
 
-    it('should trigger the aws adapter when a constellation is destroyed in order to clear the bucket', async () => {
+    it('should trigger the aws adapter when a node is destroyed in order to clear the bucket', async () => {
         let awsAdapter = {
             deleteBucketCalled: false,
             config: {
@@ -137,7 +137,7 @@ describe('terraform aws adapter component tests', () => {
         let keys = {
         };
 
-        await nebula.destroyConstellation({ cloud, keys });
+        await nebula.destroyNode({ cloud, keys });
 
         expect(awsAdapter.deleteBucketCalled).to.equal(true);
     });

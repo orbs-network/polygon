@@ -66,7 +66,7 @@ describe.only('nebula core api', () => {
     before(() => harness.clenaupTerraformProjectFromOlderRuns({ basePath: terraformBasepath, dirName: cloud.name }));
 
     before(async () => {
-        // First we will create an Elastic IP outside the scope of createConstellation()
+        // First we will create an Elastic IP outside the scope of createNode()
         console.log('Allocating a public IP from AWS...');
         preExistingElasticIp = await harness.aws.getPublicIp(region);
         console.log('Address allocated is:', preExistingElasticIp);
@@ -95,8 +95,8 @@ describe.only('nebula core api', () => {
     after(() => harness.cleanUpTerraformProject({ basePath: terraformBasepath, dirName: `${cloud.name}-aside`, shouldCleanup }));
     after(() => harness.aws.destroyPublicIp(region, preExistingElasticIp));
 
-    it('should provision and destroy a constellation', async () => {
-        await nebula.createConstellation({
+    it('should provision and destroy a node', async () => {
+        await nebula.createNode({
             cloud: Object.assign({}, cloud, {
                 ip: preExistingElasticIp,
             }),
@@ -106,7 +106,7 @@ describe.only('nebula core api', () => {
         await harness.eventuallyReady({ ip: preExistingElasticIp, boyar: boyarConfig, address });
         await harness.renameTerraformProjectToAside({ basePath: terraformBasepath, dirName: cloud.name });
 
-        const destroyResult = await nebula.destroyConstellation({
+        const destroyResult = await nebula.destroyNode({
             cloud: Object.assign({}, cloud, {
                 ip: preExistingElasticIp,
             }),
