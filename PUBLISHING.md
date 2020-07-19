@@ -1,6 +1,6 @@
 # Publishing Polygon Versions
 
-> Note: This section is only relevant to Nebula maintainers
+> Note: This section is only relevant to Polygon maintainers
 
 ## NPM tags we use
 

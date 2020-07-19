@@ -23,7 +23,7 @@ docker service scale http-api-reverse-proxy-stack=1
 tar cvfz certificates.tgz /etc/letsencrypt/ && chown ubuntu certificates.tgz
 ```
 
-Run the following code on the machine from which you run Nebula:
+Run the following code on the machine from which you run Polygon:
 
 ```bash
 # copy certificates
@@ -46,4 +46,4 @@ Add following lines to `node.json`:
 
 ## Redeploy the node
 
-Run `nebula destroy` and `nebula create` just like you did the first time you deployed the node.
+Run `polygon destroy` and `polygon create` just like you did the first time you deployed the node.
