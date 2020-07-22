@@ -2,7 +2,7 @@
 
 &nbsp;
 
-**Important: If you're a validator trying to launch an Orbs node - please read the [instructions here](https://github.com/orbs-network/validator-instructions).**
+**Important: If you're a validator trying to launch an Orbs node - please read the [instructions here](https://github.com/orbs-network/validator-instructions/blob/master/public/orbs-public-beta.md).**
 
 &nbsp;
 
