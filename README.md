@@ -10,6 +10,8 @@ Polygon generates Terraform code to provision the required AWS resources so that
 
 ![](diagram.png)
 
+Note: Orbs Polygon is a tool which is very similar to [Orbs Nebula](https://github.com/orbs-network/nebula). Polygon is the up-to-date tool for the Orbs V2 network replacing Nebula that only supports the deprecated Orbs V1 network.
+
 ## Orbs node keypair and Elastic IP
 
 Prior to running polygon to provision your blockchain node, you need to perform 2 tasks:
