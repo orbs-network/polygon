@@ -1,33 +1,18 @@
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  build:
-    docker:
-      - image: circleci/node:10.8
-
-    working_directory: ~/repo
-
+  build-and-test:
+    executor:
+      name: node/default
     steps:
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: ./build/setup.sh
-      
-      # clean up run cache
-      - run: rm -rf _terraform
-      - run: yarn install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # run tests!
-      - run: aws help --version
-      - run: ./build/test.sh
-      
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run test:unit
+            - run: npm run test:comp
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test

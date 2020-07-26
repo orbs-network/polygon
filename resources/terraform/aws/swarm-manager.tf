@@ -7,18 +7,30 @@ locals {
 while true; do
   sleep 1
   test -e /dev/xvdh && break
+
+  if [ -e /dev/xvdh ]; then
+    export DISK=/dev/xvdh
+    break
+  fi
+
+  if [ -e /dev/nvme1n1 ]; then
+    export DISK=/dev/nvme1n1
+    break
+  fi
 done
 
-mkfs -t ext4 /dev/xvdh
-mkdir /mnt/data
-cp /etc/fstab /etc/fstab.bak
-echo '/dev/xvdh /mnt/data ext4 defaults,nofail 0 0' >> /etc/fstab
-mount -a
+if [ ! -e /mnt/data ]; then
+  mkfs -t ext4 $DISK
+  mkdir /mnt/data
+  cp /etc/fstab /etc/fstab.bak
+  echo "$DISK /mnt/data ext4 defaults,nofail 0 0" >> /etc/fstab
+  mount -a
 
-mkdir -p /mnt/data/var/lib/docker
-mkdir -p /mnt/data/var/lib/containerd
-ln -s /mnt/data/var/lib/docker /var/lib/docker
-ln -s /mnt/data/var/lib/containerd /var/lib/containerd
+  mkdir -p /mnt/data/var/lib/docker
+  mkdir -p /mnt/data/var/lib/containerd
+  ln -s /mnt/data/var/lib/docker /var/lib/docker
+  ln -s /mnt/data/var/lib/containerd /var/lib/containerd
+fi
 
 # Sysctl
 
@@ -45,7 +57,6 @@ add-apt-repository \
 
 apt-get update
 apt-get install -y docker-ce
-docker plugin install --grant-all-permissions rexray/ebs
 
 echo "Downloading Boyar from ${var.boyarUrl}"
 curl -L ${var.boyarUrl} -o /usr/bin/boyar && chmod +x /usr/bin/boyar
