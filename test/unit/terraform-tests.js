@@ -157,7 +157,8 @@ s3_bucket_name = "boyar-mumbai-node4"
 s3_boyar_key = "boyar/config.json"
 s3_boyar_config_url = "https://s3-ap-south-1.amazonaws.com/boyar-mumbai-node4/boyar/config.json"
 ethereum_endpoint = "http://eth.orbs.com"
-ethereum_topology_contract_address = "0xa8Ef7740D85B1c0c22E39aae896e829Af7c895A5"`);
+ethereum_topology_contract_address = "0xa8Ef7740D85B1c0c22E39aae896e829Af7c895A5"
+`);
         });
     })
 });
