@@ -99,8 +99,8 @@ async function assertVchainHasMetrics({ ip, id, /*address*/ }) {
 
     const metrics = await result.json();
 
-    //expect(metrics["Node.Address"].Value).to.equal(address, "Node address is different than expected");
-    expect(metrics["Version.Semantic"].Value, "semver").to.match(/^[vV]/);
+    //expect(metrics["Node.Address"]).to.equal(address, "Node address is different than expected");
+    expect(metrics["Version.Semantic"], "semver").to.match(/^[vV]/);
 }
 
 module.exports = {
