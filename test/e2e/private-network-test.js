@@ -3,7 +3,6 @@ const { expect } = require('chai');
 const path = require('path');
 const _ = require('lodash');
 const harness = require('./harness');
-const { waitUntilSync, getBlockHeight } = require('./../../lib/metrics');
 const { create, destroy, update } = require('./../../lib/cli/cli');
 
 const basePath = path.join(__dirname, 'private-network/nodes');
@@ -128,3 +127,27 @@ describe.skip('polygon setup a private network', () => {
 
     after(() => harness.deleteNodesJSONsFromDisk(nodesJSONs));
 });
+
+async function getBlockHeight(endpoint) {
+    const result = await fetch(endpoint + "/metrics");
+    const metrics = await result.json();
+
+    return metrics["BlockStorage.BlockHeight"];
+}
+
+async function waitUntilSync(endpoint, targetBlockHeight) {
+    for (let counter = 0; counter < 60; counter++) {
+        await sleep(30 * 1000);
+        let currentBlockHeight = getBlockHeight(endpoint);
+        if (currentBlockHeight >= targetBlockHeight) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms)
+    })
+}
