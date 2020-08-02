@@ -4,6 +4,7 @@ const path = require('path');
 const _ = require('lodash');
 const harness = require('./harness');
 const { create, destroy, update } = require('./../../lib/cli/cli');
+const fetch = require("node-fetch");
 
 const basePath = path.join(__dirname, 'private-network/nodes');
 

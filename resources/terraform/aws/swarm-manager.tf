@@ -145,11 +145,15 @@ mkdir -p /var/efs/boyar-status/
 
 ln -s /var/efs/boyar-logs/current /var/log/boyar.log
 
+if [ ! -z "${var.bootstrap_url}" ]; then
+  export BOOTSTRAP_PARAMS="--config-url ${var.bootstrap_url}"
+fi
+
 echo "[program:boyar]
-command=/usr/bin/boyar --config-url ${var.s3_boyar_config_url} --keys /opt/orbs/keys.json --max-reload-time-delay 0m --status /var/efs/boyar-status/status.json $ETHEREUM_PARAMS $SSL_PARAMS $MANAGEMENT_CONFIG_PARAMS
+command=/usr/bin/boyar --keys /opt/orbs/keys.json --max-reload-time-delay 0m --status /var/efs/boyar-status/status.json $BOOTSTRAP_PARAMS $ETHEREUM_PARAMS $SSL_PARAMS $MANAGEMENT_CONFIG_PARAMS
 autostart=true
 autorestart=true
-environment=HOME=\"/root\", ETHEREUM_PARAMS=\"$ETHEREUM_PARAMS\", SSL_PARAMS=\"$SSL_PARAMS\", MANAGEMENT_CONFIG_PARAMS=\"$MANAGEMENT_CONFIG_PARAMS\"
+environment=HOME=\"/root\", ETHEREUM_PARAMS=\"$ETHEREUM_PARAMS\", SSL_PARAMS=\"$SSL_PARAMS\", MANAGEMENT_CONFIG_PARAMS=\"$MANAGEMENT_CONFIG_PARAMS\", BOOTSTRAP_PARAMS=\"$BOOTSTRAP_PARAMS\"
 stdout_logfile=/var/efs/boyar-logs/current
 redirect_stderr=true
 stdout_logfile_maxbytes=10MB" >> /etc/supervisor/conf.d/boyar.conf
