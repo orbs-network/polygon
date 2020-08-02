@@ -15,6 +15,7 @@ data "aws_iam_policy_document" "swarm_ecr" {
   }
 }
 
+# FIXME remove later
 data "aws_iam_policy_document" "swarm_ebs" {
   statement {
     actions = [
@@ -58,6 +59,7 @@ resource "aws_iam_policy" "swarm_ecr" {
   policy = "${data.aws_iam_policy_document.swarm_ecr.json}"
 }
 
+# FIXME remove later
 resource "aws_iam_policy" "swarm_ebs" {
   name   = "orbs-${var.name}-ebs-policy"
   path   = "/"

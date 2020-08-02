@@ -39,11 +39,9 @@ variable "boyar_config_source" {
   default = "e30K"
 }
 
-variable "s3_bucket_name" {}
-
-variable "s3_boyar_key" {}
-
-variable "s3_boyar_config_url" {}
+variable "bootstrap_url" {
+  default = ""
+}
 
 variable "path_to_ssh_pubkey" {}
 
