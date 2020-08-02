@@ -20,9 +20,6 @@ describe('_create', () => {
             "region": "ap-south-1",
             "nodeSize": "m4.large",
             "nodeCount": 0,
-            "configPath": "./templates",
-            "chainVersion": "v0.9.3",
-            "ethereumChain": "ropsten",
             "ethereumTopologyContractAddress": "0xa8Ef7740D85B1c0c22E39aae896e829Af7c895A5",
             "ethereumEndpoint": "http://eth.orbs.com",
             "incomingSshCidrBlocks": ["0.0.0.0/0"],
@@ -83,8 +80,6 @@ describe('_create', () => {
             "address": "54018092153dcdea764f89d33b086c7114e11985",
             "privateKey": "1e4c067360dd8b81db5de2609783c505f61f239cd970195d00165dd9e4df774b"
         });
-
-        expect(keys.orbs.boyarConfig).not.to.be.empty;
 
         expect(keys.orbs.ethereumEndpoint).to.be.equal("http://eth.orbs.com");
         expect(keys.orbs.ethereumTopologyContractAddress).to.be.equal("0xa8Ef7740D85B1c0c22E39aae896e829Af7c895A5");
