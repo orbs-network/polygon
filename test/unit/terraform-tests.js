@@ -6,7 +6,7 @@ chai.use(asserttype);
 const { expect } = chai;
 
 const { Terraform } = require('./../../lib/services/terraform');
-const tf = new Terraform();
+const tf = new Terraform(true);
 
 const { validateBoyarUrl, boyarDefaultVersion } = require('./../../lib/services/polygon');
 
