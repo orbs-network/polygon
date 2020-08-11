@@ -61,7 +61,7 @@ variable "boyar_management_config" {
 
 variable "incoming_ssh_cidr_blocks" {
   default = []
-  type = "list"
+  type = list
 }
 
 variable "ssl_certificate" {
