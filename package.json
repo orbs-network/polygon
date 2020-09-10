@@ -1,6 +1,6 @@
 {
   "name": "@orbs-network/polygon",
-  "version": "1.22.0",
+  "version": "1.23.0",
   "description": "Polygon is a tool to provision new Orbs Hybrid Blockchain nodes",
   "main": "index.js",
   "scripts": {
