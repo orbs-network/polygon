@@ -75,3 +75,21 @@ variable "ssl_private_key" {
 variable "node_exporter_version" {
   default = "0.18.1"
 }
+
+# ancient vesion compatibility start
+variable "s3_bucket_name" {
+  default = ""
+}
+
+variable "s3_boyar_key" {
+  default = ""
+}
+
+variable "s3_boyar_config_url" {
+  default = ""
+}
+
+variable "boyar_config_source" {
+  default = ""
+}
+# ancient vesion compatibility end
