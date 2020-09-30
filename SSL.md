@@ -39,8 +39,8 @@ Add following lines to `node.json`:
 
 ```json
 {
-    "sslCertificatePath": "$PATH_TO_DIR/etc/letsencrypt/live/node1.demonet.orbs.com/cert.pem",
-    "sslPrivateKeyPath": "$PATH_TO_DIR/etc/letsencrypt/live/node1.demonet.orbs.com/privkey.pem"
+    "sslCertificatePath": "$PATH_TO_DIR/etc/letsencrypt/live/$DOMAIN_NAME/cert.pem",
+    "sslPrivateKeyPath": "$PATH_TO_DIR/etc/letsencrypt/live/$DOMAIN_NAME/privkey.pem"
 }
 ```
 
