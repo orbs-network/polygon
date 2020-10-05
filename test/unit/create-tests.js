@@ -86,12 +86,12 @@ describe('_create', () => {
     });
 });
 
-describe.only("_verifyKeys", () => {
+describe("_verifyKeys", () => {
     it("verifies that orbsPublicAddresss matches the private key", () => {
         const account = {
-            "NodePrivateKey": "0x933e098E851949bC34425aF87DDeAF4Ba959B029709a581b95D13982578B75Ac".toLowerCase(),
-            "NodePublicKey": "0x37578D502d749Df8F02f6ce8D1ce6F3c659D19B56eE1c140cdc13d966418446C536c064329a50Ad21D59f31b6d216A610F93829A131fc5B66c3712d900689219".toLowerCase(),
-            "NodeAddress": "0xd72Db29E8511D94b016Df341B8EE4d3809CF09eE".toLowerCase()
+            "NodePrivateKey": "933e098E851949bC34425aF87DDeAF4Ba959B029709a581b95D13982578B75Ac".toLowerCase(),
+            "NodePublicKey": "37578D502d749Df8F02f6ce8D1ce6F3c659D19B56eE1c140cdc13d966418446C536c064329a50Ad21D59f31b6d216A610F93829A131fc5B66c3712d900689219".toLowerCase(),
+            "NodeAddress": "d72Db29E8511D94b016Df341B8EE4d3809CF09eE".toLowerCase()
         }
           
         expect(_verifyKeys({
@@ -100,7 +100,7 @@ describe.only("_verifyKeys", () => {
         })).to.be.true;
 
         expect(_verifyKeys({
-            orbsAddress: "0x0000b29E8511D94b016Df341B8EE4d3809CF09eE".toLowerCase(),
+            orbsAddress: "0000b29E8511D94b016Df341B8EE4d3809CF09eE".toLowerCase(),
             orbsPrivateKey: account.NodePrivateKey,
         })).to.be.false;
     });
