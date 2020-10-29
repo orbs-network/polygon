@@ -138,6 +138,7 @@ At the moment - upgrading the node is not possible directly through Polygon. If 
 | `node-size`           |Optional| string  | The worker node instance size to use                                                                          | `t2.medium`         |
 | `region`              |Optional| string  | The AWS region to deploy to                                                                                   | `us-east-1`         |
 | `ssh-public-key`      |Optional| string  | Path to the SSH public key to provision the EC2 machines with                                                 | `~/.ssh/id_rsa.pub` |
+| `boyarAutoUpdate`      |Optional| boolean  | Enables automatic updates of Boyar                                                 | `false` |
 
 **FIXME** update the file reference
 
