@@ -8,18 +8,7 @@ const { expect } = chai;
 const { Terraform } = require('./../../lib/services/terraform');
 const tf = new Terraform(true);
 
-const { validateBoyarUrl, boyarDefaultVersion } = require('./../../lib/services/polygon');
-
 describe('terraform service unit tests', () => {
-    it('should provide the default boyarTargetUrl', () => {
-        const cloudVar = {};
-
-        validateBoyarUrl(cloudVar);
-
-        expect(cloudVar).to.have.keys(['boyarTargetUrl']);
-        expect(cloudVar.boyarTargetUrl).to.equal(`https://s3.amazonaws.com/orbs-network-releases/infrastructure/boyar/boyar-${boyarDefaultVersion}.bin`);
-    });
-
     it('should parse terraform outputs correctly', () => {
         const cleanOutputs = [
             {
