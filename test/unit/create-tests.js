@@ -53,6 +53,7 @@ describe('_create', () => {
             "ephemeralStorage": false,
             "bootstrapUrl": "http://localhost:7666/node/management",
             "boyarTargetUrl": `https://github.com/orbs-network/boyarin/releases/download/${boyarDefaultVersion}/boyar-${boyarDefaultVersion}.bin`,
+            "boyarAutoUpdate": false,
             "cachePath": process.cwd() + "/test/terraform",
             "managementConfig": {
                 "services": {

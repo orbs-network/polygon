@@ -149,7 +149,9 @@ if [ ! -z "${var.bootstrap_url}" ]; then
   export BOOTSTRAP_PARAMS="--config-url ${var.bootstrap_url}"
 fi
 
-export AUTOUPDATE_PARAMS="--auto-update --shutdown-after-update"
+if [ "${var.boyarAutoUpdate}" = "true" ]; then
+  export AUTOUPDATE_PARAMS="--auto-update --shutdown-after-update"
+fi
 
 echo "[program:boyar]
 command=/usr/bin/boyar --keys /opt/orbs/keys.json --max-reload-time-delay 0m --status /var/efs/boyar-status/status.json $BOOTSTRAP_PARAMS $ETHEREUM_PARAMS $SSL_PARAMS $MANAGEMENT_CONFIG_PARAMS $AUTOUPDATE_PARAMS

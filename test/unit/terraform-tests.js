@@ -69,6 +69,7 @@ describe('terraform service unit tests', () => {
                 "bootstrapUrl": "https://s3.amazonaws.com/orbs-network-releases/config/boyar.config",
                 "cachePath": process.cwd() + "/test/terraform",
                 "boyarTargetUrl": "https://s3.amazonaws.com/orbs-network-releases/infrastructure/boyar/boyar-v1.0.0.bin",
+                "boyarAutoUpdate": false,
             };
 
             console.log(tf.createTerraformVariablesFile({ keys, cloud }))
@@ -80,6 +81,7 @@ name = "mumbai-node4"
 aws_profile = "default"
 region = "ap-south-1"
 boyarUrl = "https://s3.amazonaws.com/orbs-network-releases/infrastructure/boyar/boyar-v1.0.0.bin"
+boyarAutoUpdate = false
 instance_type = "m4.large"
 instance_count = 0
 bootstrap_url = "https://s3.amazonaws.com/orbs-network-releases/config/boyar.config"
