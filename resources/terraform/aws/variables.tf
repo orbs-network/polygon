@@ -55,6 +55,8 @@ variable "logz_io_http_endpoint" {
 
 variable "boyarUrl" { }
 
+variable "boyarAutoUpdate" { }
+
 variable "boyar_management_config" {
   default = ""
 }
@@ -92,4 +94,5 @@ variable "s3_boyar_config_url" {
 variable "boyar_config_source" {
   default = ""
 }
+
 # ancient vesion compatibility end
