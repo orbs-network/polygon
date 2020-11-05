@@ -56,7 +56,7 @@ add-apt-repository \
   stable"
 
 apt-get update
-apt-get install -y docker-ce
+apt-get install -y docker-ce daemontools
 
 echo "Downloading Boyar from ${var.boyarUrl}"
 curl -L ${var.boyarUrl} -o /usr/bin/boyar && chmod +x /usr/bin/boyar
@@ -153,12 +153,33 @@ if [ "${var.boyarAutoUpdate}" = "true" ]; then
   export AUTOUPDATE_PARAMS="--auto-update --shutdown-after-update"
 fi
 
+export BOYAR_WRAPPER_PATH=/opt/orbs/boyar.sh
+cat <<-EOF > $BOYAR_WRAPPER_PATH
+#!/bin/bash
+
+multilog_err=1
+multilog_cmd="multilog s16777215 n32 /var/efs/boyar-logs/"
+
+while [[ "\$multilog_err" -ne "0" ]]; do
+    sleep 1
+    echo "boyar logging pre checks..." | \$multilog_cmd
+    multilog_err=\$?
+done
+
+echo "Running boyar..."
+
+exec /usr/bin/boyar --keys /opt/orbs/keys.json --max-reload-time-delay 0m --bootstrap-reset-timeout 30m --status /var/efs/boyar-status/status.json $BOOTSTRAP_PARAMS $ETHEREUM_PARAMS $SSL_PARAMS $MANAGEMENT_CONFIG_PARAMS $AUTOUPDATE_PARAMS 2>&1 | \$multilog_cmd
+EOF
+
+chmod +x $BOYAR_WRAPPER_PATH
+
+
 echo "[program:boyar]
-command=/usr/bin/boyar --keys /opt/orbs/keys.json --max-reload-time-delay 0m --status /var/efs/boyar-status/status.json $BOOTSTRAP_PARAMS $ETHEREUM_PARAMS $SSL_PARAMS $MANAGEMENT_CONFIG_PARAMS $AUTOUPDATE_PARAMS
+command=$BOYAR_WRAPPER_PATH
 autostart=true
 autorestart=true
-environment=HOME=\"/root\", ETHEREUM_PARAMS=\"$ETHEREUM_PARAMS\", SSL_PARAMS=\"$SSL_PARAMS\", MANAGEMENT_CONFIG_PARAMS=\"$MANAGEMENT_CONFIG_PARAMS\", BOOTSTRAP_PARAMS=\"$BOOTSTRAP_PARAMS\", AUTOUPDATE_PARAMS=\"$AUTOUPDATE_PARAMS\"
-stdout_logfile=/var/efs/boyar-logs/current
+environment=HOME=\"/root\"
+stdout_logfile=/var/efs/boyar-logs/supervisor.stdout
 redirect_stderr=true
 stdout_logfile_maxbytes=10MB" >> /etc/supervisor/conf.d/boyar.conf
 
