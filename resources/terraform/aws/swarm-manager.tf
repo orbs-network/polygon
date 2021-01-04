@@ -157,6 +157,8 @@ export BOYAR_WRAPPER_PATH=/opt/orbs/boyar.sh
 cat <<-EOF > $BOYAR_WRAPPER_PATH
 #!/bin/bash
 
+trap "kill -- -$$" EXIT
+
 multilog_err=1
 multilog_cmd="multilog s16777215 n32 /var/efs/boyar-logs/"
 
