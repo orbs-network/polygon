@@ -4,7 +4,7 @@
 
 If you don't have your own SSL certificate, you can get one from [Let's Encrypt](https://letsencrypt.org) for free. The only problem is that you have to renew it every 3 months.
 
-Run the following code on your manager machine:
+From the machine on which you run Polygon, the node folder, ssh to into your node and execute:
 
 ```bash
 sudo su
@@ -22,12 +22,13 @@ docker service scale http-api-reverse-proxy=1
 # archive your certificates
 tar cvfz certificates.tgz /etc/letsencrypt/ && chown ubuntu certificates.tgz
 ```
-
+Exit ssh, 
 Run the following code on the machine from which you run Polygon:
 
 ```bash
 # copy certificates
-scp ubuntu@$NODE_IP:~/certificates.tgz .
+NODE_IP=`grep publicIp orbs-node-beta.json | cut -f 4 -d '"'`
+scp ubuntu@${NODE_IP}:~/certificates.tgz .
 
 # extract the file
 tar zxvf certificates.tgz
