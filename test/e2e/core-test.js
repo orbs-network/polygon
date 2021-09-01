@@ -142,12 +142,6 @@ describe.only("polygon core api", () => {
       dirName: cloud.name,
     });
 
-    console.log("nodes has been created");
-    console.log("sleeping now");
-    await new Promise((r) => {
-      setTimeout(r, 300 * 1000);
-    });
-
     const destroyResult = await polygon.destroyNode({
       cloud: Object.assign({}, cloud, {
         ip: preExistingElasticIp,
