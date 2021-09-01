@@ -85,13 +85,7 @@ aws secretsmanager get-secret-value --region ${var.region} --secret-id ${local.s
 
 # Save docker swarm token to secretsmanager
 
-aws secretsmanager create-secret --region ${var.region} --name swarm-token-${var.name}-worker-${var.region} --secret-string $(docker swarm join-token --quiet worker) || aws secretsmanager put-secret-value --region ${var.region} --secret-id swarm-token-${var.name}-worker-${var.region} --secret-string $(docker swarm join-token --quiet worker)
-
-# Remove access to secrets
-
-aws iam detach-role-policy --role-name orbs-${var.name}-manager --policy-arn ${aws_iam_policy.swarm_manager_secrets.arn}
-
-aws iam detach-role-policy --role-name orbs-${var.name}-manager --policy-arn ${aws_iam_policy.swarm_detach_role_policy.arn}
+aws secretsmanager put-secret-value --region ${var.region} --name swarm-token-${var.name}-worker-${var.region} --secret-string $(docker swarm join-token --quiet worker) || aws secretsmanager put-secret-value --region ${var.region} --secret-id swarm-token-${var.name}-worker-${var.region} --secret-string $(docker swarm join-token --quiet worker)
 
 # Log into docker hub
 

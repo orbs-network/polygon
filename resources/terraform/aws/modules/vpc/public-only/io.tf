@@ -1,7 +1,7 @@
 // Settings
 variable "azs" {
   description = "List of availability zones"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "cidr" {

@@ -50,12 +50,14 @@ variable "ethereum_endpoint" {
 }
 
 variable "logz_io_http_endpoint" {
-  default = "https://listener.logz.io:8071/?token=kATbDvYGTXTOOfyvDYGbWrGdIFBPpvHI&type=prod"
+  default = ""
 }
 
-variable "boyarUrl" { }
+variable "boyarUrl" {
+  default = ""
+}
 
-variable "boyarAutoUpdate" { }
+variable "boyarAutoUpdate" {}
 
 variable "boyar_management_config" {
   default = ""
@@ -63,7 +65,7 @@ variable "boyar_management_config" {
 
 variable "incoming_ssh_cidr_blocks" {
   default = []
-  type = "list"
+  type    = list(string)
 }
 
 variable "ssl_certificate" {
