@@ -27,6 +27,9 @@ For Polygon to work properly you should have the following setup:
   you can check this by running the following in your terminal:
   `$ cat ~/.ssh/id_rsa.pub`
 - Orbs key pair
+- You need to install Terraform and AWS CLI (all currently released versions are supported)
+- Terraform can be installed using tfenv: `brew install tfenv` on Mac. Polygon has been tested with Terraform v1.0.5
+- AWS CLI can be installed using: `brew install awscli` on Mac. Polygon is verified to work on AWS CLI v2.2.9
 - an AWS Credentials profile set correctly
   See more [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
 - [Node.js](https://nodejs.org/en/) should be installed version 8 or above
@@ -50,10 +53,6 @@ Creating a node with the CLI is as simple as this:
                   --orbs-private-key 87a210586f57890ae3642c62ceb58f0f0a54e787891054a5a54c80e1da418253
                   --public-ip 1.2.3.4
                   --region us-west-2
-
-    ....
-    [Lots of Terraform output will come out here]
-    ....
 
     Your node was created successfully!
     Provided below is the address of your manager node public IP
