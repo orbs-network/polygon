@@ -1,0 +1,32 @@
+{
+  "managementConfig": {
+    "orchestrator": {
+      "DynamicManagementConfig": {
+        "Url": "http://localhost:7666/node/management",
+        "ReadInterval": "1m",
+        "ResetTimeout": "30m"
+      },
+      "storage-driver": "local",
+      "storage-mount-type": "bind"
+    },
+    "services": {
+      "management-service": {
+        "InternalPort": 8080,
+        "ExternalPort": 7666,
+        "DockerConfig": {
+          "Image": "orbsnetworkstaging/management-service",
+          "Tag": "bootstrap",
+          "Pull": true
+        },
+        "Config": {
+          "BootstrapMode": true,
+          "EthereumGenesisContract": "blabla",
+          "EthereumFirstBlock": "some-block",
+          "EthereumEndpoint": "some-endpoint",
+          "DockerNamespace": "",
+          "FinalityBufferBlocks": 10
+        }
+      }
+    }
+  }
+}
