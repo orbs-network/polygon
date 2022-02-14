@@ -67,7 +67,13 @@ docker swarm init
 
 apt-get install -y nfs-common
 mkdir -p /var/efs
-mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_mount_target.block_storage_mount_point.dns_name}:/ /var/efs
+
+# we should wait 90 seconds at least before trying to attempt to mount an efs
+sleep 90
+while true; do
+  mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=30,retrans=2,noresvport ${aws_efs_mount_target.block_storage_mount_point.dns_name}:/ /var/efs && break
+  sleep 15
+done
 
 mkdir -p /opt/orbs
 aws secretsmanager get-secret-value --region ${var.region} --secret-id ${local.secret_name} --output text --query SecretBinary | base64 -d > /opt/orbs/keys.json
