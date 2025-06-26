@@ -75,7 +75,7 @@ resource "aws_instance" "worker" {
   count = "${var.instance_count}"
   ami = "${data.aws_ami.ubuntu-18_04.id}"
   instance_type = "${var.instance_type}"
-  security_groups = ["${aws_security_group.swarm.id}"]
+  vpc_security_group_ids = ["${aws_security_group.swarm.id}"]
   key_name = "${aws_key_pair.deployer.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.swarm_worker.name}"
   subnet_id = "${module.vpc.first_subnet.id}"

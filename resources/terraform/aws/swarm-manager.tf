@@ -212,7 +212,7 @@ TFEOF
 resource "aws_instance" "manager" {
   ami = "${data.aws_ami.ubuntu-18_04.id}"
   instance_type = "${var.instance_type}"
-  security_groups = ["${aws_security_group.swarm.id}"]
+  vpc_security_group_ids = ["${aws_security_group.swarm.id}"]
   key_name = "${aws_key_pair.deployer.key_name}"
   subnet_id = "${module.vpc.first_subnet.id}"
   iam_instance_profile = "${aws_iam_instance_profile.swarm_manager.name}"
