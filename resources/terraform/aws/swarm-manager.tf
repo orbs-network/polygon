@@ -210,7 +210,7 @@ TFEOF
 }
 
 resource "aws_instance" "manager" {
-  ami = "${data.aws_ami.ubuntu-18_04.id}"
+  ami = "${data.aws_ssm_parameter.ubuntu_18_04.value}" 
   instance_type = "${var.instance_type}"
   security_groups = ["${aws_security_group.swarm.id}"]
   key_name = "${aws_key_pair.deployer.key_name}"
